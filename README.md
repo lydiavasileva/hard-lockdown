@@ -64,20 +64,11 @@ The standard for Ethernet networks.
 ## IP layout
 This layout may be changed during the course of work.
 Management Network
-Net ID:
-10.10.10.0/29
-SM:
-255.255.255.248
-GW:
-10.10.10.1
-JH:
-10.10.10.2
+Net ID: 10.10.10.0/29
+SM: 255.255.255.248
+GW: 10.10.10.1
+JH: 10.10.10.2
 man-host: 10.10.10.3
-USR Network
-Net ID:
-SM:
-GW:
-host-XX:
 
 ## Naming convention
 Virtual Router – vSRX

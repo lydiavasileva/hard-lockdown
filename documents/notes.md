@@ -2,9 +2,13 @@
 
 ssh -j jh@jump-host some-user@logserver
 
+
 -> alexander)
+
 -> lidia    )-> /home/jump/.ssh/authorized_keys
+
 -> fridi    )         no shell for jh
+
 
 
 ssh -j jh@jh sysuse@jh

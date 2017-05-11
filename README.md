@@ -38,6 +38,8 @@ we do not have access to the devices, the vSRX will be configured with certain s
 Since it is still a small network, the performance will not be a concern. Depending on the number of
 users using the USR network, there might be a need for a faster Internet connection in the future.
 
+
+
 ## Security and privacy
 The management network will be heavily secured, so only specific credentials will be able to log on
 the system. Since we do not want the man-host to be accessible from the outside, there will be an

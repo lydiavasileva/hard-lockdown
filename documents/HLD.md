@@ -62,25 +62,35 @@ Linux distribution for the hosts
 Juniper SRX for the router
 
 ## Protocols and standards
-- SSH – Secure Shell
+- [SSH](https://en.wikipedia.org/wiki/Secure_Shell) – Secure Shell
 SSH is used for secure connections, it is normally used on top of TCP or IP and for login
 Authentication on a remote access, or to communicate on an insecure network.
 SSH will be used on the server for the login.
-- 802.3 – IEEE 802.3 ETHERNET
+
+- [802.3](https://en.wikipedia.org/wiki/IEEE_802.3) – IEEE 802.3 ETHERNET
 The standard for Ethernet networks.
 
 
 ## IP layout
 This layout may be changed during the course of work.
+
 Management Network
+
 Net ID: 10.10.10.0/29
+
 SM: 255.255.255.248
+
 GW: 10.10.10.1
+
 JH: 10.10.10.2
+
 man-host: 10.10.10.3
 
 ## Naming convention
 Virtual Router – vSRX
+
 Jump Hosts – JH
+
 Management Linux Box – man-host
+
 User Hosts (XX number of host) – host_XX

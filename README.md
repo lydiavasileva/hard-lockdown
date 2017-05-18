@@ -51,7 +51,7 @@ TBA.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/lydiavasileva/hard-lockdown/documents/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -62,7 +62,7 @@ TBA.
 * **Lidia Vasileva** - *Co-Creator* - [lydiavasileva](https://github.com/lydiavasileva)
 * **Alexander Moosmand** - *Co-Creator* - [moos1234](https://github.com/moos1234)
 
-See also the list of [contributors](https://github.com/lydiavasileva/hard-lockdown/documentation/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/lydiavasileva/hard-lockdown/documents/contributors) who participated in this project.
 
 ## License
 

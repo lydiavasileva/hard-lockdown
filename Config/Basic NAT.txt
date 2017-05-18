@@ -1,0 +1,186 @@
+## Last commit: 2017-05-18 08:01:13 UTC by lab
+version 12.1X47-D15.4;
+system {
+    host-name chinanet;
+    root-authentication {
+        encrypted-password "$1$9HDvtmWy$7k24Yiy7VeQF6mssyvJiN0"; ## SECRET-DATA
+    }
+    login {
+        user lab {
+            uid 2001;
+            class super-user;
+            authentication {
+                encrypted-password "$1$WBjauqxo$MEQwPwEqORbT/NtQr1gZs0"; ## SECRET-DATA
+            }
+        }
+    }
+    services {
+        ssh;
+    }
+    syslog {
+        user * {
+            any emergency;
+        }
+        file messages {
+            any any;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands any;
+        }
+    }
+    license {
+        autoupdate {
+            url https://ae1.juniper.net/junos/key_retrieval;
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        unit 0 {
+            description Gateway_Management;
+            family inet {
+                address 10.10.10.1/29;
+            }
+        }
+    }
+    ge-0/0/1 {
+        unit 0 {
+            description USR-LAN;
+            family inet {
+                address 192.168.0.1/24;
+            }
+        }
+    }
+}
+security {
+    screen {
+        ids-option untrust-screen {
+            icmp {
+                ping-death;
+            }
+            ip {
+                source-route-option;
+                tear-drop;
+            }
+            tcp {
+                syn-flood {
+                    alarm-threshold 1024;
+                    attack-threshold 200;
+                    source-threshold 1024;
+                    destination-threshold 2048;
+                    queue-size 2000; ## Warning: 'queue-size' is deprecated
+                    timeout 20;
+                }
+                land;
+            }
+        }
+    }
+    nat {
+        destination {
+            pool allow-ssh {
+                address 10.10.10.2/32 port 22;
+            }
+            rule-set allow-ssh {
+                from zone untrust;
+                rule 1 {
+                    match {
+                        destination-address 192.168.0.0/24;
+                        destination-port {
+                            56284;
+                        }
+                    }
+                    then {
+                        destination-nat {
+                            pool {
+                                allow-ssh;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    policies {
+        from-zone trust to-zone trust {
+            policy default-permit {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone trust to-zone untrust {
+            policy default-permit {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone untrust to-zone trust {
+            policy allow-ssh {
+                match {
+                    source-address any;
+                    destination-address JH;
+                    application junos-ssh;
+                }
+                then {
+                    permit;
+                    log {
+                        session-init;
+                    }
+                    count;
+                }
+            }
+            policy default-deny {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    deny;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone trust {
+            tcp-rst;
+            address-book {
+                address JH 10.10.10.2/32;
+            }
+            interfaces {
+                ge-0/0/0.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            ssh;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+        security-zone untrust {
+            screen untrust-screen;
+            interfaces {
+                ge-0/0/1.0;
+            }
+        }
+    }
+}
+applications {
+    application ssh-dnat {
+        protocol tcp;
+        destination-port 56284;
